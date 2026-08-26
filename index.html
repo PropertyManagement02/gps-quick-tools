@@ -189,6 +189,25 @@
       background: #374151;
     }
 
+    .copy-button {
+      margin-top: 15px;
+      background: #059669;
+    }
+
+    .copy-button:hover {
+      background: #047857;
+    }
+
+    .copy-status {
+      display: none;
+      margin-top: 10px;
+      padding: 10px;
+      text-align: center;
+      background: #d1fae5;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+
     footer {
       text-align: center;
       color: #777;
@@ -217,7 +236,9 @@
         Calculate a tenant's portion of a utility bill using the
         actual number of billing days shown on the bill.
       </p>
-      <button onclick="openBillProration()">Open Calculator</button>
+      <button onclick="openBillProration()">
+        Open Calculator
+      </button>
     </div>
 
     <div class="tool">
@@ -244,6 +265,7 @@
 
   </div>
 
+
   <!-- BILL PRORATION CALCULATOR -->
 
   <div class="calculator" id="billProration">
@@ -252,14 +274,17 @@
 
     <div class="calculator-note">
       Enter the <strong>number of days exactly as shown on the bill</strong>.
-      The calculator will use that number to determine the daily rate.
-      Dates are used to help determine the tenant's responsibility period.
+      That number controls the daily rate.
+      The tenant's responsibility automatically runs from the
+      Tenant Responsibility Start Date through the Bill End Date.
     </div>
+
 
     <div class="form-grid">
 
       <div class="field">
         <label for="billAmount">Total Bill Amount</label>
+
         <input
           type="number"
           id="billAmount"
@@ -268,14 +293,17 @@
           placeholder="Example: 320.00">
       </div>
 
+
       <div class="field">
         <label for="billDays">Number of Days on Bill</label>
+
         <input
           type="number"
           id="billDays"
           step="1"
           min="1"
           placeholder="Example: 32">
+
         <div class="small-text">
           Enter this manually from the actual bill.
         </div>
@@ -283,184 +311,260 @@
 
     </div>
 
+
     <h3>Billing Period</h3>
 
     <div class="form-grid">
 
       <div class="field">
         <label for="billStart">Bill Start Date</label>
+
         <input
           type="text"
           id="billStart"
-          placeholder="1/1/26">
+          placeholder="Example: 1/1/26">
       </div>
+
 
       <div class="field">
         <label for="billEnd">Bill End Date</label>
+
         <input
           type="text"
           id="billEnd"
-          placeholder="2/2/26">
+          placeholder="Example: 2/2/26">
+
+        <div class="small-text">
+          This automatically becomes the tenant responsibility end date.
+        </div>
       </div>
 
     </div>
+
 
     <h3>Tenant Responsibility</h3>
 
     <div class="form-grid">
 
       <div class="field">
-        <label for="tenantStart">Tenant Responsibility Start</label>
+
+        <label for="tenantStart">
+          Tenant Responsibility Start Date
+        </label>
+
         <input
           type="text"
           id="tenantStart"
-          placeholder="1/15/26">
+          placeholder="Example: 1/15/26">
+
+        <div class="small-text">
+          Tenant responsibility runs through the Bill End Date.
+        </div>
+
       </div>
 
-      <div class="field">
-        <label for="tenantEnd">Tenant Responsibility End</label>
-        <input
-          type="text"
-          id="tenantEnd"
-          placeholder="2/2/26">
-      </div>
 
       <div class="field">
-        <label for="tenantDays">Tenant Days</label>
+
+        <label for="tenantDays">
+          Tenant Days
+        </label>
+
         <input
           type="number"
           id="tenantDays"
           step="1"
           min="0"
           placeholder="Calculated automatically">
+
         <div class="small-text">
-          Automatically calculated from the dates, but you can override it.
+          Automatically calculated, but you can manually override it.
         </div>
+
       </div>
 
     </div>
+
 
     <button onclick="calculateBillProration()">
       Calculate Proration
     </button>
 
-    <button class="secondary-button" onclick="clearBillProration()">
+
+    <button
+      class="secondary-button"
+      onclick="clearBillProration()">
       Clear Calculator
     </button>
 
-    <div class="error" id="billError"></div>
 
-    <div class="results" id="billResults">
+    <div
+      class="error"
+      id="billError">
+    </div>
+
+
+    <div
+      class="results"
+      id="billResults">
 
       <div class="result-row">
         <span>Total Bill</span>
         <strong id="resultBill">$0.00</strong>
       </div>
 
+
       <div class="result-row">
         <span>Billing Days Used</span>
         <strong id="resultBillDays">0</strong>
       </div>
+
 
       <div class="result-row">
         <span>Daily Rate</span>
         <strong id="resultDaily">$0.00</strong>
       </div>
 
+
       <div class="result-row">
         <span>Tenant Days</span>
         <strong id="resultTenantDays">0</strong>
       </div>
+
 
       <div class="result-row">
         <span>Remaining Days</span>
         <strong id="resultRemainingDays">0</strong>
       </div>
 
+
       <div class="result-row">
         <span>Remaining Portion</span>
         <strong id="resultRemaining">$0.00</strong>
       </div>
+
 
       <div class="result-row big-result">
         <span>Tenant Portion</span>
         <span id="resultTenant">$0.00</span>
       </div>
 
+
+      <button
+        class="copy-button"
+        onclick="copyTenantPortion()">
+        Copy Tenant Portion
+      </button>
+
+
+      <div
+        class="copy-status"
+        id="copyStatus">
+        Copied!
+      </div>
+
     </div>
 
   </div>
 
+
+  <!-- COMMUNICATION -->
 
   <h2 class="section-title">Communication</h2>
 
   <div class="tools">
 
     <div class="tool">
+
       <h2>Tenant Message Generator</h2>
+
       <p>
-        Create consistent tenant messages for balances, utilities,
-        maintenance, lease issues and other situations.
+        Create consistent tenant messages for balances,
+        utilities, maintenance, lease issues and other situations.
       </p>
+
       <button onclick="alert('Message Generator coming soon.')">
         Create Message
       </button>
+
     </div>
 
+
     <div class="tool">
+
       <h2>Owner Update</h2>
+
       <p>
         Turn property updates, maintenance information and
         leasing activity into a concise owner update.
       </p>
+
       <button onclick="alert('Owner Update tool coming soon.')">
         Create Update
       </button>
+
     </div>
 
+
     <div class="tool">
+
       <h2>Work Order Builder</h2>
+
       <p>
         Create standardized descriptions for maintenance
         work orders and vendor assignments.
       </p>
+
       <button onclick="alert('Work Order Builder coming soon.')">
         Create Work Order
       </button>
+
     </div>
 
   </div>
 
+
+  <!-- LEASE AND MANAGEMENT -->
 
   <h2 class="section-title">Lease & Management</h2>
 
   <div class="tools">
 
     <div class="tool">
+
       <h2>Notice Date Calculator</h2>
+
       <p>
         Calculate lease notice deadlines, termination dates
         and other important management dates.
       </p>
+
       <button onclick="alert('Notice Calculator coming soon.')">
         Open Calculator
       </button>
+
     </div>
 
+
     <div class="tool">
+
       <h2>Move-In / Move-Out</h2>
+
       <p>
         Access standardized move-in and move-out calculations
         and checklists.
       </p>
+
       <button onclick="alert('Move-In / Move-Out tools coming soon.')">
         Open Tools
       </button>
+
     </div>
 
   </div>
 
 </div>
+
 
 <footer>
   GPS Real Estate • Internal Management Tools
@@ -471,17 +575,25 @@
 
   let tenantDaysAutoCalculated = false;
 
+
   function openBillProration() {
-    const calculator = document.getElementById("billProration");
+
+    const calculator =
+      document.getElementById("billProration");
 
     if (calculator.style.display === "block") {
+
       calculator.style.display = "none";
+
     } else {
+
       calculator.style.display = "block";
+
       calculator.scrollIntoView({
         behavior: "smooth",
         block: "start"
       });
+
     }
   }
 
@@ -494,8 +606,10 @@
 
     const text = value.trim();
 
+
     /*
       Handles:
+
       1/15/26
       01/15/2026
       1-15-26
@@ -503,19 +617,31 @@
     */
 
     const numericMatch =
-      text.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2}|\d{4})$/);
+      text.match(
+        /^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2}|\d{4})$/
+      );
+
 
     if (numericMatch) {
 
-      let month = parseInt(numericMatch[1], 10);
-      let day = parseInt(numericMatch[2], 10);
-      let year = parseInt(numericMatch[3], 10);
+      let month =
+        parseInt(numericMatch[1], 10);
+
+      let day =
+        parseInt(numericMatch[2], 10);
+
+      let year =
+        parseInt(numericMatch[3], 10);
+
 
       if (year < 100) {
         year += 2000;
       }
 
-      const date = new Date(year, month - 1, day);
+
+      const date =
+        new Date(year, month - 1, day);
+
 
       if (
         date.getFullYear() === year &&
@@ -525,24 +651,32 @@
         return date;
       }
 
+
       return null;
     }
 
+
     /*
-      Also tries dates such as:
+      Also tries:
+
       January 15, 2026
       Jan 15 2026
     */
 
-    const parsed = new Date(text);
+    const parsed =
+      new Date(text);
+
 
     if (!isNaN(parsed.getTime())) {
+
       return new Date(
         parsed.getFullYear(),
         parsed.getMonth(),
         parsed.getDate()
       );
+
     }
+
 
     return null;
   }
@@ -550,17 +684,21 @@
 
   function inclusiveDays(startDate, endDate) {
 
-    const startUTC = Date.UTC(
-      startDate.getFullYear(),
-      startDate.getMonth(),
-      startDate.getDate()
-    );
+    const startUTC =
+      Date.UTC(
+        startDate.getFullYear(),
+        startDate.getMonth(),
+        startDate.getDate()
+      );
 
-    const endUTC = Date.UTC(
-      endDate.getFullYear(),
-      endDate.getMonth(),
-      endDate.getDate()
-    );
+
+    const endUTC =
+      Date.UTC(
+        endDate.getFullYear(),
+        endDate.getMonth(),
+        endDate.getDate()
+      );
+
 
     return Math.floor(
       (endUTC - startUTC) / 86400000
@@ -573,17 +711,28 @@
     const startValue =
       document.getElementById("tenantStart").value;
 
-    const endValue =
-      document.getElementById("tenantEnd").value;
 
-    const start = parseFlexibleDate(startValue);
-    const end = parseFlexibleDate(endValue);
+    const endValue =
+      document.getElementById("billEnd").value;
+
+
+    const start =
+      parseFlexibleDate(startValue);
+
+
+    const end =
+      parseFlexibleDate(endValue);
+
 
     if (start && end && end >= start) {
 
-      const days = inclusiveDays(start, end);
+      const days =
+        inclusiveDays(start, end);
 
-      document.getElementById("tenantDays").value = days;
+
+      document.getElementById("tenantDays").value =
+        days;
+
 
       tenantDaysAutoCalculated = true;
     }
@@ -592,26 +741,44 @@
 
   document
     .getElementById("tenantStart")
-    .addEventListener("change", autoCalculateTenantDays);
+    .addEventListener(
+      "change",
+      autoCalculateTenantDays
+    );
 
-  document
-    .getElementById("tenantEnd")
-    .addEventListener("change", autoCalculateTenantDays);
 
   document
     .getElementById("tenantStart")
-    .addEventListener("blur", autoCalculateTenantDays);
+    .addEventListener(
+      "blur",
+      autoCalculateTenantDays
+    );
+
 
   document
-    .getElementById("tenantEnd")
-    .addEventListener("blur", autoCalculateTenantDays);
+    .getElementById("billEnd")
+    .addEventListener(
+      "change",
+      autoCalculateTenantDays
+    );
+
+
+  document
+    .getElementById("billEnd")
+    .addEventListener(
+      "blur",
+      autoCalculateTenantDays
+    );
 
 
   document
     .getElementById("tenantDays")
-    .addEventListener("input", function() {
-      tenantDaysAutoCalculated = false;
-    });
+    .addEventListener(
+      "input",
+      function() {
+        tenantDaysAutoCalculated = false;
+      }
+    );
 
 
   function calculateBillProration() {
@@ -619,84 +786,161 @@
     const errorBox =
       document.getElementById("billError");
 
+
     const results =
       document.getElementById("billResults");
 
-    errorBox.style.display = "none";
-    results.style.display = "none";
+
+    const copyStatus =
+      document.getElementById("copyStatus");
+
+
+    errorBox.style.display =
+      "none";
+
+
+    results.style.display =
+      "none";
+
+
+    copyStatus.style.display =
+      "none";
+
 
     const billAmount =
-      parseFloat(document.getElementById("billAmount").value);
+      parseFloat(
+        document.getElementById("billAmount").value
+      );
+
 
     const billDays =
-      parseInt(document.getElementById("billDays").value, 10);
+      parseInt(
+        document.getElementById("billDays").value,
+        10
+      );
+
 
     const tenantDays =
-      parseInt(document.getElementById("tenantDays").value, 10);
-
-    if (isNaN(billAmount) || billAmount < 0) {
-      showBillError("Please enter a valid total bill amount.");
-      return;
-    }
-
-    if (isNaN(billDays) || billDays <= 0) {
-      showBillError("Please enter the number of days shown on the bill.");
-      return;
-    }
-
-    if (isNaN(tenantDays) || tenantDays < 0) {
-      showBillError(
-        "Please enter the tenant's responsibility dates or manually enter the tenant days."
+      parseInt(
+        document.getElementById("tenantDays").value,
+        10
       );
+
+
+    if (
+      isNaN(billAmount) ||
+      billAmount < 0
+    ) {
+
+      showBillError(
+        "Please enter a valid total bill amount."
+      );
+
       return;
     }
+
+
+    if (
+      isNaN(billDays) ||
+      billDays <= 0
+    ) {
+
+      showBillError(
+        "Please enter the number of days shown on the bill."
+      );
+
+      return;
+    }
+
+
+    if (
+      isNaN(tenantDays) ||
+      tenantDays < 0
+    ) {
+
+      showBillError(
+        "Please enter the tenant responsibility start date or manually enter the tenant days."
+      );
+
+      return;
+    }
+
 
     if (tenantDays > billDays) {
+
       showBillError(
         "Tenant days cannot be greater than the number of days on the bill."
       );
+
       return;
     }
 
-    const dailyRate = billAmount / billDays;
 
-    /*
-      We calculate the tenant portion directly,
-      then subtract it from the bill for the remaining portion.
-      This prevents penny differences from rounding each side separately.
-    */
+    const dailyRate =
+      billAmount / billDays;
+
 
     const tenantPortion =
-      Math.round((dailyRate * tenantDays) * 100) / 100;
+      Math.round(
+        (dailyRate * tenantDays) * 100
+      ) / 100;
+
 
     const remainingPortion =
-      Math.round((billAmount - tenantPortion) * 100) / 100;
+      Math.round(
+        (billAmount - tenantPortion) * 100
+      ) / 100;
+
 
     const remainingDays =
       billDays - tenantDays;
 
-    document.getElementById("resultBill").textContent =
+
+    document
+      .getElementById("resultBill")
+      .textContent =
       money(billAmount);
 
-    document.getElementById("resultBillDays").textContent =
+
+    document
+      .getElementById("resultBillDays")
+      .textContent =
       billDays;
 
-    document.getElementById("resultDaily").textContent =
+
+    document
+      .getElementById("resultDaily")
+      .textContent =
       money(dailyRate);
 
-    document.getElementById("resultTenantDays").textContent =
+
+    document
+      .getElementById("resultTenantDays")
+      .textContent =
       tenantDays;
 
-    document.getElementById("resultRemainingDays").textContent =
+
+    document
+      .getElementById("resultRemainingDays")
+      .textContent =
       remainingDays;
 
-    document.getElementById("resultRemaining").textContent =
+
+    document
+      .getElementById("resultRemaining")
+      .textContent =
       money(remainingPortion);
 
-    document.getElementById("resultTenant").textContent =
+
+    document
+      .getElementById("resultTenant")
+      .textContent =
       money(tenantPortion);
 
-    results.style.display = "block";
+
+    results.style.display =
+      "block";
+
 
     results.scrollIntoView({
       behavior: "smooth",
@@ -705,13 +949,70 @@
   }
 
 
+  function copyTenantPortion() {
+
+    const amount =
+      document
+        .getElementById("resultTenant")
+        .textContent;
+
+
+    if (!amount || amount === "$0.00") {
+
+      showBillError(
+        "Calculate the proration first."
+      );
+
+      return;
+    }
+
+
+    navigator.clipboard
+      .writeText(amount)
+      .then(function() {
+
+        const copyStatus =
+          document.getElementById("copyStatus");
+
+
+        copyStatus.textContent =
+          "Copied " + amount;
+
+
+        copyStatus.style.display =
+          "block";
+
+
+        setTimeout(function() {
+
+          copyStatus.style.display =
+            "none";
+
+        }, 2000);
+
+      })
+      .catch(function() {
+
+        alert(
+          "Could not automatically copy the amount."
+        );
+
+      });
+  }
+
+
   function showBillError(message) {
 
     const errorBox =
       document.getElementById("billError");
 
-    errorBox.textContent = message;
-    errorBox.style.display = "block";
+
+    errorBox.textContent =
+      message;
+
+
+    errorBox.style.display =
+      "block";
   }
 
 
@@ -735,18 +1036,39 @@
       "billStart",
       "billEnd",
       "tenantStart",
-      "tenantEnd",
       "tenantDays"
     ];
 
+
     fields.forEach(function(id) {
-      document.getElementById(id).value = "";
+
+      document
+        .getElementById(id)
+        .value = "";
+
     });
 
-    document.getElementById("billResults").style.display = "none";
-    document.getElementById("billError").style.display = "none";
 
-    tenantDaysAutoCalculated = false;
+    document
+      .getElementById("billResults")
+      .style.display =
+      "none";
+
+
+    document
+      .getElementById("billError")
+      .style.display =
+      "none";
+
+
+    document
+      .getElementById("copyStatus")
+      .style.display =
+      "none";
+
+
+    tenantDaysAutoCalculated =
+      false;
   }
 
 </script>
