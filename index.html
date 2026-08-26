@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>GPS Quick Tools</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      color: #222;
+    }
+
+    header {
+      background: #1f2937;
+      color: white;
+      padding: 28px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 30px;
+    }
+
+    header p {
+      margin: 8px 0 0;
+      color: #d1d5db;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 35px auto;
+      padding: 0 20px;
+    }
+
+    .section-title {
+      margin-top: 35px;
+      margin-bottom: 15px;
+      font-size: 20px;
+    }
+
+    .tools {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 18px;
+    }
+
+    .tool {
+      background: white;
+      border-radius: 10px;
+      padding: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    }
+
+    .tool h2 {
+      margin-top: 0;
+      font-size: 19px;
+    }
+
+    .tool p {
+      color: #555;
+      line-height: 1.5;
+    }
+
+    button {
+      width: 100%;
+      border: none;
+      border-radius: 6px;
+      padding: 12px;
+      background: #2563eb;
+      color: white;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+
+    footer {
+      text-align: center;
+      color: #777;
+      padding: 40px 20px;
+      font-size: 13px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>GPS Quick Tools</h1>
+  <p>Internal Property Management Tools</p>
+</header>
+
+<div class="container">
+
+  <h2 class="section-title">Calculators</h2>
+
+  <div class="tools">
+
+    <div class="tool">
+      <h2>Bill Proration</h2>
+      <p>
+        Calculate a tenant's share of a utility or other bill
+        based on the billing period and responsibility dates.
+      </p>
+      <button onclick="alert('Bill Proration tool coming next!')">
+        Open Calculator
+      </button>
+    </div>
+
+    <div class="tool">
+      <h2>Rent Proration</h2>
+      <p>
+        Calculate prorated rent for a move-in or move-out
+        using monthly rent and occupancy dates.
+      </p>
+      <button onclick="alert('Rent Proration tool coming next!')">
+        Open Calculator
+      </button>
+    </div>
+
+    <div class="tool">
+      <h2>Payment Plan</h2>
+      <p>
+        Project a tenant's balance using current charges,
+        future rent and scheduled payments.
+      </p>
+      <button onclick="alert('Payment Plan tool coming next!')">
+        Open Calculator
+      </button>
+    </div>
+
+  </div>
+
+
+  <h2 class="section-title">Communication</h2>
+
+  <div class="tools">
+
+    <div class="tool">
+      <h2>Tenant Message Generator</h2>
+      <p>
+        Create consistent tenant messages for balances,
+        utilities, maintenance, lease issues and other situations.
+      </p>
+      <button onclick="alert('Message Generator coming soon!')">
+        Create Message
+      </button>
+    </div>
+
+    <div class="tool">
+      <h2>Owner Update</h2>
+      <p>
+        Turn property updates, maintenance information and
+        leasing activity into a concise owner update.
+      </p>
+      <button onclick="alert('Owner Update tool coming soon!')">
+        Create Update
+      </button>
+    </div>
+
+    <div class="tool">
+      <h2>Work Order Builder</h2>
+      <p>
+        Create standardized descriptions for maintenance
+        work orders and vendor assignments.
+      </p>
+      <button onclick="alert('Work Order Builder coming soon!')">
+        Create Work Order
+      </button>
+    </div>
+
+  </div>
+
+
+  <h2 class="section-title">Lease & Management</h2>
+
+  <div class="tools">
+
+    <div class="tool">
+      <h2>Notice Date Calculator</h2>
+      <p>
+        Calculate lease notice deadlines, termination dates
+        and other important management dates.
+      </p>
+      <button onclick="alert('Notice Calculator coming soon!')">
+        Open Calculator
+      </button>
+    </div>
+
+    <div class="tool">
+      <h2>Move-In / Move-Out</h2>
+      <p>
+        Access standardized move-in and move-out calculations
+        and checklists.
+      </p>
+      <button onclick="alert('Move-In / Move-Out tools coming soon!')">
+        Open Tools
+      </button>
+    </div>
+
+  </div>
+
+</div>
+
+<footer>
+  GPS Real Estate • Internal Management Tools
+</footer>
+
+</body>
+</html>
