@@ -6,9 +6,7 @@
   <title>GPS Quick Tools</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -52,16 +50,17 @@
       gap: 18px;
     }
 
-    .tool {
+    .tool,
+    .panel {
       background: white;
       border-radius: 10px;
       padding: 24px;
       box-shadow: 0 2px 8px rgba(0,0,0,.08);
     }
 
-    .tool h2 {
+    .tool h2,
+    .panel h2 {
       margin-top: 0;
-      font-size: 19px;
     }
 
     .tool p {
@@ -80,38 +79,34 @@
       cursor: pointer;
     }
 
-    button:hover {
-      background: #1d4ed8;
-    }
+    button:hover { background: #1d4ed8; }
 
     .secondary-button {
       margin-top: 10px;
       background: #4b5563;
     }
 
-    .secondary-button:hover {
-      background: #374151;
-    }
+    .secondary-button:hover { background: #374151; }
 
     .copy-button {
       background: #059669;
     }
 
-    .copy-button:hover {
-      background: #047857;
+    .copy-button:hover { background: #047857; }
+
+    .danger-button {
+      background: #b91c1c;
     }
 
-    .calculator,
-    .water-tool {
+    .danger-button:hover { background: #991b1b; }
+
+    .water-tool,
+    .calculator {
       display: none;
       margin-top: 25px;
-      background: white;
-      border-radius: 10px;
-      padding: 25px;
-      box-shadow: 0 2px 8px rgba(0,0,0,.08);
     }
 
-    .calculator-note {
+    .note {
       background: #f3f4f6;
       border-radius: 6px;
       padding: 12px;
@@ -137,8 +132,7 @@
     }
 
     input,
-    textarea,
-    select {
+    textarea {
       width: 100%;
       padding: 11px;
       border: 1px solid #cbd5e1;
@@ -147,14 +141,13 @@
     }
 
     textarea {
-      min-height: 220px;
+      min-height: 230px;
       resize: vertical;
       font-family: Arial, sans-serif;
     }
 
     input:focus,
-    textarea:focus,
-    select:focus {
+    textarea:focus {
       outline: 2px solid #93c5fd;
       border-color: #2563eb;
     }
@@ -163,35 +156,6 @@
       color: #6b7280;
       font-size: 12px;
       margin-top: 5px;
-    }
-
-    .results {
-      display: none;
-      margin-top: 22px;
-      padding: 20px;
-      background: #f8fafc;
-      border: 1px solid #dbe3ea;
-      border-radius: 8px;
-    }
-
-    .result-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      padding: 8px 0;
-      border-bottom: 1px solid #e5e7eb;
-    }
-
-    .result-row:last-child {
-      border-bottom: none;
-    }
-
-    .big-result {
-      margin-top: 12px;
-      padding-top: 15px;
-      border-top: 2px solid #cbd5e1;
-      font-size: 22px;
-      font-weight: bold;
     }
 
     .error {
@@ -203,17 +167,7 @@
       margin-top: 15px;
     }
 
-    .copy-status {
-      display: none;
-      margin-top: 10px;
-      padding: 10px;
-      text-align: center;
-      background: #d1fae5;
-      border-radius: 6px;
-      font-weight: bold;
-    }
-
-    .water-summary {
+    .summary {
       display: none;
       margin-top: 22px;
       padding: 18px;
@@ -221,7 +175,7 @@
       border-radius: 8px;
     }
 
-    .water-summary-grid {
+    .summary-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
       gap: 12px;
@@ -258,29 +212,19 @@
       background: #fef2f2;
     }
 
+    .account-card.rollover {
+      border-left: 6px solid #7c3aed;
+      background: #f5f3ff;
+    }
+
+    .account-card.cleared {
+      border-left: 6px solid #059669;
+      background: #ecfdf5;
+    }
+
     .account-card h3 {
       margin: 0 0 10px;
-    }
-
-    .account-meta {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 10px;
-      margin-bottom: 14px;
-    }
-
-    .meta-box {
-      background: rgba(255,255,255,.7);
-      padding: 10px;
-      border-radius: 6px;
-    }
-
-    .message-box {
-      background: #f8fafc;
-      padding: 14px;
-      border-radius: 6px;
-      margin-bottom: 12px;
-      line-height: 1.5;
+      font-size: 22px;
     }
 
     .status-label {
@@ -302,6 +246,83 @@
     .status-label.critical {
       background: #fee2e2;
       color: #991b1b;
+    }
+
+    .status-label.rollover {
+      background: #ede9fe;
+      color: #5b21b6;
+    }
+
+    .status-label.cleared {
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    .account-meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .meta-box {
+      background: rgba(255,255,255,.75);
+      padding: 10px;
+      border-radius: 6px;
+    }
+
+    .message-box {
+      background: #f8fafc;
+      padding: 14px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+
+    .button-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .results {
+      display: none;
+      margin-top: 22px;
+      padding: 20px;
+      background: #f8fafc;
+      border: 1px solid #dbe3ea;
+      border-radius: 8px;
+    }
+
+    .result-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 8px 0;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .result-row:last-child {
+      border-bottom: none;
+    }
+
+    .big-result {
+      margin-top: 12px;
+      padding-top: 15px;
+      border-top: 2px solid #cbd5e1;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .copy-status {
+      display: none;
+      margin-top: 10px;
+      padding: 10px;
+      text-align: center;
+      background: #d1fae5;
+      border-radius: 6px;
+      font-weight: bold;
     }
 
     footer {
@@ -328,54 +349,43 @@
     <div class="tool">
       <h2>Water Past-Due Review</h2>
       <p>
-        Paste the Akron Water account page and automatically find
-        overdue accounts, calculate days late, and create tenant messages.
+        Paste the Akron Water account list, identify overdue accounts,
+        track them week to week, and create tenant messages.
       </p>
-      <button onclick="openWaterTool()">Open Review</button>
+      <button onclick="toggleWaterTool()">Open Review</button>
     </div>
   </div>
 
-
-  <div class="water-tool" id="waterTool">
-
+  <div class="water-tool panel" id="waterTool">
     <h2>Weekly Water Past-Due Review</h2>
 
-    <div class="calculator-note">
-      Log into the owner's Akron Water portal, copy the account list,
-      paste it below, then click <strong>Process Accounts</strong>.
-      Only balances that are past their due date will appear.
+    <div class="note">
+      Paste the account list from the owner's Akron Water portal.
+      GPS Quick Tools will track accounts by <strong>water account number</strong>.
+      It will not assume an old balance was paid merely because Akron changed
+      the amount or due date.
     </div>
 
     <div class="field">
       <label for="ownerName">Owner / Portal Name</label>
-      <input
-        type="text"
-        id="ownerName"
-        placeholder="Example: FP Property Holdings">
+      <input type="text" id="ownerName" placeholder="Example: Owner A">
     </div>
 
     <div class="field">
-      <label for="waterPaste">Paste Akron Water Account Page</label>
-      <textarea
-        id="waterPaste"
-        placeholder="Paste the My Accounts information here..."></textarea>
+      <label for="waterPaste">Paste Akron Water Account List</label>
+      <textarea id="waterPaste" placeholder="Paste the account list here..."></textarea>
     </div>
 
-    <button onclick="processWaterAccounts()">
-      Process Accounts
-    </button>
+    <button onclick="processWaterAccounts()">Process Accounts</button>
 
-    <button
-      class="secondary-button"
-      onclick="clearWaterTool()">
-      Clear Review
+    <button class="secondary-button" onclick="clearWaterInput()">
+      Clear Current Review
     </button>
 
     <div class="error" id="waterError"></div>
 
-    <div class="water-summary" id="waterSummary">
-      <div class="water-summary-grid">
-
+    <div class="summary" id="waterSummary">
+      <div class="summary-grid">
         <div class="summary-box">
           Overdue Accounts
           <strong id="summaryCount">0</strong>
@@ -387,160 +397,113 @@
         </div>
 
         <div class="summary-box">
-          15+ Days Late
-          <strong id="summaryWarning">0</strong>
+          Possible Rollovers
+          <strong id="summaryRollover">0</strong>
         </div>
 
         <div class="summary-box">
-          30+ Days Late
+          30+ Days Tracked
           <strong id="summaryCritical">0</strong>
         </div>
-
       </div>
     </div>
 
     <div id="waterResults"></div>
 
+    <div style="margin-top:30px;">
+      <button class="danger-button" onclick="resetWaterHistory()">
+        Reset All Water History
+      </button>
+      <div class="small-text">
+        This permanently clears the locally stored weekly water history on this device.
+      </div>
+    </div>
   </div>
 
 
   <h2 class="section-title">Calculators</h2>
 
   <div class="tools">
-
     <div class="tool">
       <h2>Bill Proration</h2>
       <p>
-        Calculate a tenant's portion of a utility bill using the
-        actual number of billing days shown on the bill.
+        Calculate a tenant's portion of a utility bill using the actual
+        number of billing days shown on the bill.
       </p>
-      <button onclick="openBillProration()">
-        Open Calculator
-      </button>
+      <button onclick="toggleBillProration()">Open Calculator</button>
     </div>
 
     <div class="tool">
       <h2>Rent Proration</h2>
-      <p>
-        Calculate prorated rent for a move-in or move-out.
-      </p>
-      <button onclick="alert('Rent Proration coming soon.')">
-        Open Calculator
-      </button>
+      <p>Calculate prorated rent for move-ins or move-outs.</p>
+      <button onclick="alert('Rent Proration coming soon.')">Open Calculator</button>
     </div>
 
     <div class="tool">
       <h2>Payment Plan</h2>
-      <p>
-        Project tenant balances using future rent and payments.
-      </p>
-      <button onclick="alert('Payment Plan coming soon.')">
-        Open Calculator
-      </button>
+      <p>Project balances using current charges and scheduled payments.</p>
+      <button onclick="alert('Payment Plan coming soon.')">Open Calculator</button>
     </div>
-
   </div>
 
-
-  <div class="calculator" id="billProration">
-
+  <div class="calculator panel" id="billProration">
     <h2>Bill Proration Calculator</h2>
 
-    <div class="calculator-note">
+    <div class="note">
       Enter the <strong>number of days exactly as shown on the bill</strong>.
-      That number controls the daily rate.
-      Tenant responsibility runs through the Bill End Date.
+      Tenant responsibility runs from the Tenant Responsibility Start Date
+      through the Bill End Date.
     </div>
 
     <div class="form-grid">
-
       <div class="field">
         <label for="billAmount">Total Bill Amount</label>
-        <input
-          type="number"
-          id="billAmount"
-          step="0.01"
-          min="0"
-          placeholder="Example: 320.00">
+        <input type="number" id="billAmount" step="0.01" min="0" placeholder="320.00">
       </div>
 
       <div class="field">
         <label for="billDays">Number of Days on Bill</label>
-        <input
-          type="number"
-          id="billDays"
-          step="1"
-          min="1"
-          placeholder="Example: 32">
+        <input type="number" id="billDays" step="1" min="1" placeholder="32">
       </div>
-
     </div>
 
     <h3>Billing Period</h3>
 
     <div class="form-grid">
-
       <div class="field">
         <label for="billStart">Bill Start Date</label>
-        <input
-          type="text"
-          id="billStart"
-          placeholder="Example: 1/1/26">
+        <input type="text" id="billStart" placeholder="1/1/26">
       </div>
 
       <div class="field">
         <label for="billEnd">Bill End Date</label>
-        <input
-          type="text"
-          id="billEnd"
-          placeholder="Example: 2/2/26">
+        <input type="text" id="billEnd" placeholder="2/2/26">
       </div>
-
     </div>
 
     <h3>Tenant Responsibility</h3>
 
     <div class="form-grid">
-
       <div class="field">
-        <label for="tenantStart">
-          Tenant Responsibility Start Date
-        </label>
-
-        <input
-          type="text"
-          id="tenantStart"
-          placeholder="Example: 1/15/26">
+        <label for="tenantStart">Tenant Responsibility Start Date</label>
+        <input type="text" id="tenantStart" placeholder="1/15/26">
       </div>
 
       <div class="field">
-        <label for="tenantDays">
-          Tenant Days
-        </label>
-
-        <input
-          type="number"
-          id="tenantDays"
-          min="0"
-          placeholder="Calculated automatically">
+        <label for="tenantDays">Tenant Days</label>
+        <input type="number" id="tenantDays" min="0" placeholder="Calculated automatically">
       </div>
-
     </div>
 
-    <button onclick="calculateBillProration()">
-      Calculate Proration
-    </button>
+    <button onclick="calculateBillProration()">Calculate Proration</button>
 
-    <button
-      class="secondary-button"
-      onclick="clearBillProration()">
+    <button class="secondary-button" onclick="clearBillProration()">
       Clear Calculator
     </button>
 
     <div class="error" id="billError"></div>
 
     <div class="results" id="billResults">
-
       <div class="result-row">
         <span>Total Bill</span>
         <strong id="resultBill">$0.00</strong>
@@ -583,53 +546,11 @@
         Copy Tenant Portion
       </button>
 
-      <div class="copy-status" id="copyStatus">
-        Copied!
-      </div>
-
+      <div class="copy-status" id="copyStatus"></div>
     </div>
-
-  </div>
-
-
-  <h2 class="section-title">Communication</h2>
-
-  <div class="tools">
-
-    <div class="tool">
-      <h2>Tenant Message Generator</h2>
-      <p>
-        Create standardized tenant messages for common situations.
-      </p>
-      <button onclick="alert('General Message Generator coming soon.')">
-        Create Message
-      </button>
-    </div>
-
-    <div class="tool">
-      <h2>Owner Update</h2>
-      <p>
-        Create concise owner updates.
-      </p>
-      <button onclick="alert('Owner Update coming soon.')">
-        Create Update
-      </button>
-    </div>
-
-    <div class="tool">
-      <h2>Work Order Builder</h2>
-      <p>
-        Create standardized work-order descriptions.
-      </p>
-      <button onclick="alert('Work Order Builder coming soon.')">
-        Create Work Order
-      </button>
-    </div>
-
   </div>
 
 </div>
-
 
 <footer>
   GPS Real Estate • Internal Management Tools
@@ -637,31 +558,736 @@
 
 
 <script>
+  const WATER_HISTORY_KEY = "gpsWaterHistoryV2";
 
-  /*
-  ---------------------------
-  GENERAL FUNCTIONS
-  ---------------------------
-  */
 
   function money(number) {
-    return number.toLocaleString(
-      "en-US",
-      {
-        style: "currency",
-        currency: "USD"
-      }
+    return number.toLocaleString("en-US", {
+      style: "currency",
+      currency: "USD"
+    });
+  }
+
+
+  function dateOnly(date) {
+    return new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate()
     );
   }
 
 
-  function parseFlexibleDate(value) {
+  function isoDate(date) {
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, "0");
+    const d = String(date.getDate()).padStart(2, "0");
+    return `${y}-${m}-${d}`;
+  }
 
+
+  function formatDate(date) {
+    return date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric"
+    });
+  }
+
+
+  function daysBetween(start, end) {
+    const a = Date.UTC(
+      start.getFullYear(),
+      start.getMonth(),
+      start.getDate()
+    );
+
+    const b = Date.UTC(
+      end.getFullYear(),
+      end.getMonth(),
+      end.getDate()
+    );
+
+    return Math.floor((b - a) / 86400000);
+  }
+
+
+  function getWaterHistory() {
+    try {
+      return JSON.parse(
+        localStorage.getItem(WATER_HISTORY_KEY) || "{}"
+      );
+    } catch {
+      return {};
+    }
+  }
+
+
+  function saveWaterHistory(history) {
+    localStorage.setItem(
+      WATER_HISTORY_KEY,
+      JSON.stringify(history)
+    );
+  }
+
+
+  function toggleWaterTool() {
+    const el = document.getElementById("waterTool");
+    const show = el.style.display !== "block";
+    el.style.display = show ? "block" : "none";
+
+    if (show) {
+      el.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+  }
+
+
+  function splitWaterAccounts(rawText) {
+    const cleaned = rawText
+      .replace(/\r/g, "")
+      .replace(/\u00A0/g, " ");
+
+    /*
+      Account header pattern:
+      10-0418.305 — 889 FESS AVE
+      1-0241.312 — 827 OBERLIN ST
+    */
+
+    const headerRegex =
+      /(\d{1,2}-\d{4}\.\d{3})\s*(?:—|–|-{1,2})\s*([^\n|]+)/g;
+
+    const matches = [];
+    let match;
+
+    while ((match = headerRegex.exec(cleaned)) !== null) {
+      matches.push({
+        index: match.index,
+        accountNumber: match[1].trim(),
+        address: match[2]
+          .replace(/\*\*/g, "")
+          .replace(/\s+/g, " ")
+          .trim()
+      });
+    }
+
+    const records = [];
+
+    for (let i = 0; i < matches.length; i++) {
+      const start = matches[i].index;
+      const end =
+        i + 1 < matches.length
+          ? matches[i + 1].index
+          : cleaned.length;
+
+      records.push({
+        accountNumber: matches[i].accountNumber,
+        address: matches[i].address,
+        block: cleaned.slice(start, end)
+      });
+    }
+
+    return records;
+  }
+
+
+  function extractAccountData(record) {
+    const amountMatch =
+      record.block.match(
+        /Current Amount Due\s*:?\s*\$([\d,]+\.\d{2})/i
+      );
+
+    const dueDateMatch =
+      record.block.match(
+        /Current Amount Due\s*:?\s*\$[\d,]+\.\d{2}\s*on\s*([A-Za-z]+\s+\d{1,2},\s+\d{4})/i
+      );
+
+    if (!amountMatch) {
+      return null;
+    }
+
+    const amount =
+      parseFloat(amountMatch[1].replace(/,/g, ""));
+
+    let dueDate = null;
+
+    if (dueDateMatch) {
+      const parsed = new Date(dueDateMatch[1]);
+
+      if (!isNaN(parsed.getTime())) {
+        dueDate = dateOnly(parsed);
+      }
+    }
+
+    return {
+      accountNumber: record.accountNumber,
+      address: record.address,
+      amount,
+      dueDate
+    };
+  }
+
+
+  function processWaterAccounts() {
+    const rawText =
+      document.getElementById("waterPaste").value;
+
+    const ownerName =
+      document.getElementById("ownerName").value.trim();
+
+    const errorBox =
+      document.getElementById("waterError");
+
+    errorBox.style.display = "none";
+
+    if (!rawText.trim()) {
+      showWaterError(
+        "Paste the Akron Water account information first."
+      );
+      return;
+    }
+
+    const records =
+      splitWaterAccounts(rawText);
+
+    if (!records.length) {
+      showWaterError(
+        "No water accounts were detected. Make sure the copied text includes account numbers and property addresses."
+      );
+      return;
+    }
+
+    const accounts =
+      records
+        .map(extractAccountData)
+        .filter(Boolean);
+
+    if (!accounts.length) {
+      showWaterError(
+        "Accounts were detected, but no balances could be read."
+      );
+      return;
+    }
+
+    updateWaterHistoryAndDisplay(
+      accounts,
+      ownerName
+    );
+  }
+
+
+  function updateWaterHistoryAndDisplay(accounts, ownerName) {
+    const history = getWaterHistory();
+    const today = dateOnly(new Date());
+    const todayISO = isoDate(today);
+
+    const currentByAccount = {};
+
+    accounts.forEach(account => {
+      currentByAccount[account.accountNumber] = account;
+    });
+
+    const displayItems = [];
+
+    accounts.forEach(account => {
+      const old =
+        history[account.accountNumber] || null;
+
+      const isCurrentlyPastDue =
+        account.amount > 0 &&
+        account.dueDate &&
+        account.dueDate < today;
+
+      if (account.amount === 0) {
+        if (
+          old &&
+          old.activeDelinquency
+        ) {
+          displayItems.push({
+            ...account,
+            status: "cleared",
+            history: old
+          });
+
+          old.activeDelinquency = false;
+          old.clearedByReview = todayISO;
+          old.lastSeenBalance = 0;
+          old.lastReviewed = todayISO;
+
+          history[account.accountNumber] = old;
+        }
+
+        return;
+      }
+
+      if (!old) {
+        if (!isCurrentlyPastDue) {
+          return;
+        }
+
+        const newRecord = {
+          accountNumber: account.accountNumber,
+          address: account.address,
+          ownerName: ownerName || "",
+          firstSeenPastDue: todayISO,
+          firstPortalDueDate:
+            account.dueDate
+              ? isoDate(account.dueDate)
+              : null,
+          lastPortalDueDate:
+            account.dueDate
+              ? isoDate(account.dueDate)
+              : null,
+          lastSeenBalance: account.amount,
+          lastReviewed: todayISO,
+          reviewCount: 1,
+          activeDelinquency: true,
+          manuallyConfirmedPaid: false
+        };
+
+        history[account.accountNumber] =
+          newRecord;
+
+        displayItems.push({
+          ...account,
+          status: "new",
+          history: newRecord
+        });
+
+        return;
+      }
+
+      old.address = account.address;
+      old.ownerName =
+        ownerName || old.ownerName || "";
+
+      if (!old.activeDelinquency) {
+        if (!isCurrentlyPastDue) {
+          return;
+        }
+
+        old.firstSeenPastDue = todayISO;
+        old.firstPortalDueDate =
+          account.dueDate
+            ? isoDate(account.dueDate)
+            : null;
+        old.lastPortalDueDate =
+          account.dueDate
+            ? isoDate(account.dueDate)
+            : null;
+        old.lastSeenBalance = account.amount;
+        old.lastReviewed = todayISO;
+        old.reviewCount = 1;
+        old.activeDelinquency = true;
+        old.manuallyConfirmedPaid = false;
+
+        history[account.accountNumber] = old;
+
+        displayItems.push({
+          ...account,
+          status: "new",
+          history: old
+        });
+
+        return;
+      }
+
+      const priorBalance =
+        Number(old.lastSeenBalance || 0);
+
+      const priorDue =
+        old.lastPortalDueDate;
+
+      const newDue =
+        account.dueDate
+          ? isoDate(account.dueDate)
+          : null;
+
+      const dueChanged =
+        priorDue &&
+        newDue &&
+        priorDue !== newDue;
+
+      const balanceChanged =
+        Math.abs(
+          priorBalance - account.amount
+        ) > 0.009;
+
+      const possibleRollover =
+        dueChanged || balanceChanged;
+
+      if (old.lastReviewed !== todayISO) {
+        old.reviewCount =
+          Number(old.reviewCount || 0) + 1;
+      }
+
+      old.lastPortalDueDate = newDue;
+      old.lastSeenBalance = account.amount;
+      old.lastReviewed = todayISO;
+      old.activeDelinquency = true;
+
+      history[account.accountNumber] = old;
+
+      displayItems.push({
+        ...account,
+        status:
+          possibleRollover
+            ? "rollover"
+            : "outstanding",
+        history: old,
+        priorBalance,
+        priorDue
+      });
+    });
+
+    saveWaterHistory(history);
+    displayWaterResults(displayItems);
+  }
+
+
+  function displayWaterResults(items) {
+    const results =
+      document.getElementById("waterResults");
+
+    const summary =
+      document.getElementById("waterSummary");
+
+    results.innerHTML = "";
+
+    const active =
+      items.filter(
+        item => item.status !== "cleared"
+      );
+
+    const total =
+      active.reduce(
+        (sum, item) => sum + item.amount,
+        0
+      );
+
+    const rollovers =
+      active.filter(
+        item => item.status === "rollover"
+      ).length;
+
+    const critical =
+      active.filter(item => {
+        const first =
+          new Date(
+            item.history.firstSeenPastDue +
+            "T00:00:00"
+          );
+
+        return daysBetween(
+          first,
+          dateOnly(new Date())
+        ) >= 30;
+      }).length;
+
+    document.getElementById("summaryCount").textContent =
+      active.length;
+
+    document.getElementById("summaryTotal").textContent =
+      money(total);
+
+    document.getElementById("summaryRollover").textContent =
+      rollovers;
+
+    document.getElementById("summaryCritical").textContent =
+      critical;
+
+    summary.style.display = "block";
+
+    if (!items.length) {
+      results.innerHTML =
+        '<div class="account-card"><strong>No overdue accounts requiring action were found.</strong></div>';
+      return;
+    }
+
+    items.forEach((item, index) => {
+      const card =
+        document.createElement("div");
+
+      let level = "";
+      let label = "Standard Reminder";
+
+      const firstSeen =
+        item.history.firstSeenPastDue
+          ? new Date(
+              item.history.firstSeenPastDue +
+              "T00:00:00"
+            )
+          : null;
+
+      const trackedDays =
+        firstSeen
+          ? daysBetween(
+              firstSeen,
+              dateOnly(new Date())
+            )
+          : 0;
+
+      if (item.status === "cleared") {
+        level = "cleared";
+        label = "Cleared By This Review";
+      } else if (item.status === "rollover") {
+        level = "rollover";
+        label = "Possible Rollover - Verify Prior Balance";
+      } else if (trackedDays >= 30) {
+        level = "critical";
+        label = "Management Follow-Up";
+      } else if (trackedDays >= 14) {
+        level = "warning";
+        label = "Follow-Up Needed";
+      } else if (item.status === "outstanding") {
+        label = "Still Outstanding";
+      } else {
+        label = "New Delinquency";
+      }
+
+      card.className =
+        `account-card ${level}`;
+
+      const portalDue =
+        item.dueDate
+          ? formatDate(item.dueDate)
+          : "No date shown";
+
+      const firstSeenText =
+        firstSeen
+          ? formatDate(firstSeen)
+          : "Unknown";
+
+      const message =
+        `Hello! You have ${money(item.amount)} past due on your water account. Please let us know when you are making payment. Thank you!`;
+
+      let rolloverNote = "";
+
+      if (item.status === "rollover") {
+        rolloverNote = `
+          <div class="note" style="margin-top:10px;">
+            <strong>Prior balance requires verification.</strong><br>
+            Previous observed balance:
+            ${money(item.priorBalance || 0)}<br>
+            Current balance:
+            ${money(item.amount)}<br>
+            Akron may have rolled the prior balance into a newer invoice.
+            Do not assume the prior delinquency was paid.
+          </div>
+        `;
+      }
+
+      if (item.status === "cleared") {
+        card.innerHTML = `
+          <span class="status-label cleared">${label}</span>
+          <h3>${escapeHTML(item.address)}</h3>
+
+          <div class="account-meta">
+            <div class="meta-box">
+              <strong>Account</strong><br>
+              ${escapeHTML(item.accountNumber)}
+            </div>
+
+            <div class="meta-box">
+              <strong>Current Balance</strong><br>
+              $0.00
+            </div>
+
+            <div class="meta-box">
+              <strong>First Seen Past Due</strong><br>
+              ${firstSeenText}
+            </div>
+          </div>
+        `;
+
+        results.appendChild(card);
+        return;
+      }
+
+      card.innerHTML = `
+        <span class="status-label ${level}">${label}</span>
+
+        <h3>${escapeHTML(item.address)}</h3>
+
+        <div class="account-meta">
+          <div class="meta-box">
+            <strong>Past Due</strong><br>
+            ${money(item.amount)}
+          </div>
+
+          <div class="meta-box">
+            <strong>Portal Due Date</strong><br>
+            ${portalDue}
+          </div>
+
+          <div class="meta-box">
+            <strong>First Seen Past Due</strong><br>
+            ${firstSeenText}
+          </div>
+
+          <div class="meta-box">
+            <strong>Weekly Reviews</strong><br>
+            ${item.history.reviewCount || 1}
+          </div>
+
+          <div class="meta-box">
+            <strong>Tracked Days</strong><br>
+            ${trackedDays}
+          </div>
+
+          <div class="meta-box">
+            <strong>Account</strong><br>
+            ${escapeHTML(item.accountNumber)}
+          </div>
+        </div>
+
+        ${rolloverNote}
+
+        <div class="message-box" id="waterMessage${index}">
+          ${escapeHTML(message)}
+        </div>
+
+        <div class="button-row">
+          <button
+            class="copy-button"
+            onclick="copyWaterMessage(${index})">
+            Copy Message
+          </button>
+
+          <button
+            class="secondary-button"
+            onclick="markWaterPaid('${item.accountNumber}')">
+            Mark Prior Balance Paid
+          </button>
+        </div>
+      `;
+
+      results.appendChild(card);
+    });
+  }
+
+
+  function copyWaterMessage(index) {
+    const message =
+      document.getElementById(
+        "waterMessage" + index
+      ).innerText;
+
+    navigator.clipboard
+      .writeText(message)
+      .then(() => {
+        alert("Message copied!");
+      })
+      .catch(() => {
+        alert(
+          "Could not automatically copy the message."
+        );
+      });
+  }
+
+
+  function markWaterPaid(accountNumber) {
+    const history = getWaterHistory();
+
+    if (!history[accountNumber]) {
+      return;
+    }
+
+    const confirmed =
+      confirm(
+        "Mark the prior delinquency for this water account as paid/cleared?"
+      );
+
+    if (!confirmed) {
+      return;
+    }
+
+    history[accountNumber].activeDelinquency =
+      false;
+
+    history[accountNumber].manuallyConfirmedPaid =
+      true;
+
+    history[accountNumber].clearedByReview =
+      isoDate(dateOnly(new Date()));
+
+    saveWaterHistory(history);
+
+    alert(
+      "Prior delinquency marked as paid. Re-run the current review if needed."
+    );
+  }
+
+
+  function resetWaterHistory() {
+    const first =
+      confirm(
+        "This will permanently erase all stored water delinquency history on this device. Continue?"
+      );
+
+    if (!first) {
+      return;
+    }
+
+    const typed =
+      prompt(
+        'Type RESET to permanently clear all water history.'
+      );
+
+    if (typed !== "RESET") {
+      alert("History was not reset.");
+      return;
+    }
+
+    localStorage.removeItem(
+      WATER_HISTORY_KEY
+    );
+
+    alert("Water history has been reset.");
+  }
+
+
+  function clearWaterInput() {
+    document.getElementById("ownerName").value = "";
+    document.getElementById("waterPaste").value = "";
+    document.getElementById("waterResults").innerHTML = "";
+    document.getElementById("waterSummary").style.display = "none";
+    document.getElementById("waterError").style.display = "none";
+  }
+
+
+  function showWaterError(message) {
+    const errorBox =
+      document.getElementById("waterError");
+
+    errorBox.textContent = message;
+    errorBox.style.display = "block";
+  }
+
+
+  function escapeHTML(value) {
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+
+  /*
+  BILL PRORATION
+  */
+
+  function parseFlexibleDate(value) {
     if (!value || !value.trim()) {
       return null;
     }
 
-    const text = value.trim();
+    const text =
+      value.trim();
 
     const numericMatch =
       text.match(
@@ -669,17 +1295,25 @@
       );
 
     if (numericMatch) {
+      let month =
+        parseInt(numericMatch[1], 10);
 
-      let month = parseInt(numericMatch[1], 10);
-      let day = parseInt(numericMatch[2], 10);
-      let year = parseInt(numericMatch[3], 10);
+      let day =
+        parseInt(numericMatch[2], 10);
+
+      let year =
+        parseInt(numericMatch[3], 10);
 
       if (year < 100) {
         year += 2000;
       }
 
       const date =
-        new Date(year, month - 1, day);
+        new Date(
+          year,
+          month - 1,
+          day
+        );
 
       if (
         date.getFullYear() === year &&
@@ -692,7 +1326,8 @@
       return null;
     }
 
-    const parsed = new Date(text);
+    const parsed =
+      new Date(text);
 
     if (!isNaN(parsed.getTime())) {
       return new Date(
@@ -707,7 +1342,6 @@
 
 
   function inclusiveDays(startDate, endDate) {
-
     const startUTC =
       Date.UTC(
         startDate.getFullYear(),
@@ -723,530 +1357,156 @@
       );
 
     return Math.floor(
-      (endUTC - startUTC) / 86400000
+      (endUTC - startUTC) /
+      86400000
     ) + 1;
   }
 
 
-  /*
-  ---------------------------
-  WATER PAST-DUE REVIEW
-  ---------------------------
-  */
-
-  function openWaterTool() {
-
-    const tool =
-      document.getElementById("waterTool");
-
-    if (tool.style.display === "block") {
-      tool.style.display = "none";
-    } else {
-      tool.style.display = "block";
-
-      tool.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-    }
-  }
-
-
-  function processWaterAccounts() {
-
-    const rawText =
-      document.getElementById("waterPaste").value;
-
-    const errorBox =
-      document.getElementById("waterError");
-
-    const resultsBox =
-      document.getElementById("waterResults");
-
-    const summary =
-      document.getElementById("waterSummary");
-
-    errorBox.style.display = "none";
-    resultsBox.innerHTML = "";
-    summary.style.display = "none";
-
-
-    if (!rawText.trim()) {
-
-      showWaterError(
-        "Paste the Akron Water account information first."
-      );
-
-      return;
-    }
-
-
-    /*
-      Looks for account/address followed by:
-      Current Amount Due : $###.## on Month DD, YYYY
-    */
-
-    const regex =
-      /(?:\*\*)?([\d\-]+\.\d+)\s*[—\-]+\s*([A-Z0-9 \-]+?)(?:\*\*)?[\s\S]*?Current Amount Due\s*:?\s*\$([\d,]+\.\d{2})\s*on\s*([A-Za-z]+\s+\d{1,2},\s+\d{4})/gi;
-
-
-    let match;
-
-    const accounts = [];
-
-
-    while ((match = regex.exec(rawText)) !== null) {
-
-      const accountNumber =
-        match[1].trim();
-
-      const address =
-        match[2]
-          .replace(/\s+/g, " ")
-          .trim();
-
-      const amount =
-        parseFloat(
-          match[3].replace(/,/g, "")
-        );
-
-      const dueDate =
-        new Date(match[4]);
-
-
-      if (
-        !isNaN(amount) &&
-        !isNaN(dueDate.getTime())
-      ) {
-
-        accounts.push({
-          accountNumber,
-          address,
-          amount,
-          dueDate
-        });
-
-      }
-    }
-
-
-    if (accounts.length === 0) {
-
-      showWaterError(
-        "No Akron Water accounts could be detected. Make sure you copied the full My Accounts list."
-      );
-
-      return;
-    }
-
-
-    const today = new Date();
-
-    today.setHours(0,0,0,0);
-
-
-    const overdue = accounts
-      .filter(function(account) {
-
-        const due =
-          new Date(account.dueDate);
-
-        due.setHours(0,0,0,0);
-
-        return (
-          account.amount > 0 &&
-          due < today
-        );
-
-      })
-      .map(function(account) {
-
-        const due =
-          new Date(account.dueDate);
-
-        due.setHours(0,0,0,0);
-
-        const daysLate =
-          Math.floor(
-            (today - due) / 86400000
-          );
-
-        return {
-          ...account,
-          daysLate
-        };
-
-      })
-      .sort(function(a, b) {
-
-        return b.daysLate - a.daysLate;
-
-      });
-
-
-    displayWaterResults(overdue);
-  }
-
-
-  function displayWaterResults(accounts) {
-
-    const resultsBox =
-      document.getElementById("waterResults");
-
-    const summary =
-      document.getElementById("waterSummary");
-
-
-    const total =
-      accounts.reduce(
-        function(sum, account) {
-          return sum + account.amount;
-        },
-        0
-      );
-
-
-    const warningCount =
-      accounts.filter(
-        function(account) {
-          return account.daysLate >= 15;
-        }
-      ).length;
-
-
-    const criticalCount =
-      accounts.filter(
-        function(account) {
-          return account.daysLate >= 30;
-        }
-      ).length;
-
-
-    document.getElementById("summaryCount").textContent =
-      accounts.length;
-
-    document.getElementById("summaryTotal").textContent =
-      money(total);
-
-    document.getElementById("summaryWarning").textContent =
-      warningCount;
-
-    document.getElementById("summaryCritical").textContent =
-      criticalCount;
-
-
-    summary.style.display = "block";
-
-
-    if (accounts.length === 0) {
-
-      resultsBox.innerHTML =
-        '<div class="account-card"><strong>No overdue water accounts found.</strong></div>';
-
-      return;
-    }
-
-
-    accounts.forEach(function(account, index) {
-
-      let level = "";
-      let label = "Standard Reminder";
-
-      if (account.daysLate >= 30) {
-
-        level = "critical";
-        label = "Management Follow-Up";
-
-      } else if (account.daysLate >= 15) {
-
-        level = "warning";
-        label = "Follow-Up Needed";
-
-      }
-
-
-      const message =
-        "Hello! You have " +
-        money(account.amount) +
-        " past due on your water account. Please let us know when you are making payment. Thank you!";
-
-
-      const card =
-        document.createElement("div");
-
-      card.className =
-        "account-card " + level;
-
-
-      const dueDateText =
-        account.dueDate.toLocaleDateString(
-          "en-US",
-          {
-            month: "short",
-            day: "numeric",
-            year: "numeric"
-          }
-        );
-
-
-      card.innerHTML = `
-
-        <span class="status-label ${level}">
-          ${label}
-        </span>
-
-        <h3>${account.address}</h3>
-
-        <div class="account-meta">
-
-          <div class="meta-box">
-            <strong>Past Due</strong><br>
-            ${money(account.amount)}
-          </div>
-
-          <div class="meta-box">
-            <strong>Due Date</strong><br>
-            ${dueDateText}
-          </div>
-
-          <div class="meta-box">
-            <strong>Days Late</strong><br>
-            ${account.daysLate}
-          </div>
-
-          <div class="meta-box">
-            <strong>Account</strong><br>
-            ${account.accountNumber}
-          </div>
-
-        </div>
-
-        <div class="message-box" id="waterMessage${index}">
-          ${message}
-        </div>
-
-        <button
-          class="copy-button"
-          onclick="copyWaterMessage(${index})">
-          Copy Message
-        </button>
-
-      `;
-
-
-      resultsBox.appendChild(card);
-
-    });
-  }
-
-
-  function copyWaterMessage(index) {
-
-    const message =
-      document
-        .getElementById(
-          "waterMessage" + index
-        )
-        .innerText;
-
-
-    navigator.clipboard
-      .writeText(message)
-      .then(function() {
-
-        alert("Message copied!");
-
-      })
-      .catch(function() {
-
-        alert(
-          "Could not automatically copy the message."
-        );
-
-      });
-  }
-
-
-  function showWaterError(message) {
-
-    const errorBox =
-      document.getElementById("waterError");
-
-    errorBox.textContent = message;
-    errorBox.style.display = "block";
-  }
-
-
-  function clearWaterTool() {
-
-    document.getElementById("ownerName").value = "";
-    document.getElementById("waterPaste").value = "";
-    document.getElementById("waterResults").innerHTML = "";
-
-    document.getElementById("waterSummary")
-      .style.display = "none";
-
-    document.getElementById("waterError")
-      .style.display = "none";
-  }
-
-
-  /*
-  ---------------------------
-  BILL PRORATION
-  ---------------------------
-  */
-
-  function openBillProration() {
-
+  function toggleBillProration() {
     const calculator =
-      document.getElementById("billProration");
+      document.getElementById(
+        "billProration"
+      );
 
-    if (calculator.style.display === "block") {
+    const show =
+      calculator.style.display !== "block";
 
-      calculator.style.display = "none";
+    calculator.style.display =
+      show ? "block" : "none";
 
-    } else {
-
-      calculator.style.display = "block";
-
+    if (show) {
       calculator.scrollIntoView({
         behavior: "smooth",
         block: "start"
       });
-
     }
   }
 
 
   function autoCalculateTenantDays() {
-
     const start =
       parseFlexibleDate(
-        document.getElementById("tenantStart").value
+        document.getElementById(
+          "tenantStart"
+        ).value
       );
 
     const end =
       parseFlexibleDate(
-        document.getElementById("billEnd").value
+        document.getElementById(
+          "billEnd"
+        ).value
       );
-
 
     if (
       start &&
       end &&
       end >= start
     ) {
-
-      document
-        .getElementById("tenantDays")
-        .value =
-        inclusiveDays(start, end);
+      document.getElementById(
+        "tenantDays"
+      ).value =
+        inclusiveDays(
+          start,
+          end
+        );
     }
   }
 
 
-  document
-    .getElementById("tenantStart")
-    .addEventListener(
-      "blur",
-      autoCalculateTenantDays
-    );
+  document.getElementById(
+    "tenantStart"
+  ).addEventListener(
+    "blur",
+    autoCalculateTenantDays
+  );
 
 
-  document
-    .getElementById("billEnd")
-    .addEventListener(
-      "blur",
-      autoCalculateTenantDays
-    );
+  document.getElementById(
+    "billEnd"
+  ).addEventListener(
+    "blur",
+    autoCalculateTenantDays
+  );
 
 
   function calculateBillProration() {
-
-    const errorBox =
-      document.getElementById("billError");
-
-    const results =
-      document.getElementById("billResults");
-
-
-    errorBox.style.display = "none";
-    results.style.display = "none";
-
-
     const billAmount =
       parseFloat(
-        document.getElementById("billAmount").value
+        document.getElementById(
+          "billAmount"
+        ).value
       );
-
 
     const billDays =
       parseInt(
-        document.getElementById("billDays").value,
+        document.getElementById(
+          "billDays"
+        ).value,
         10
       );
-
 
     const tenantDays =
       parseInt(
-        document.getElementById("tenantDays").value,
+        document.getElementById(
+          "tenantDays"
+        ).value,
         10
       );
 
+    const errorBox =
+      document.getElementById(
+        "billError"
+      );
+
+    const results =
+      document.getElementById(
+        "billResults"
+      );
+
+    errorBox.style.display = "none";
+    results.style.display = "none";
 
     if (
       isNaN(billAmount) ||
       billAmount < 0
     ) {
-
       showBillError(
         "Please enter a valid bill amount."
       );
-
       return;
     }
-
 
     if (
       isNaN(billDays) ||
       billDays <= 0
     ) {
-
       showBillError(
         "Please enter the number of days shown on the bill."
       );
-
       return;
     }
-
 
     if (
       isNaN(tenantDays) ||
       tenantDays < 0
     ) {
-
       showBillError(
         "Enter the tenant responsibility start date or tenant days."
       );
-
       return;
     }
 
-
     if (tenantDays > billDays) {
-
       showBillError(
         "Tenant days cannot exceed billing days."
       );
-
       return;
     }
 
-
     const dailyRate =
       billAmount / billDays;
-
 
     const tenantPortion =
       Math.round(
@@ -1254,7 +1514,6 @@
         tenantDays *
         100
       ) / 100;
-
 
     const remainingPortion =
       Math.round(
@@ -1265,47 +1524,58 @@
         100
       ) / 100;
 
-
-    document.getElementById("resultBill").textContent =
+    document.getElementById(
+      "resultBill"
+    ).textContent =
       money(billAmount);
 
-    document.getElementById("resultBillDays").textContent =
+    document.getElementById(
+      "resultBillDays"
+    ).textContent =
       billDays;
 
-    document.getElementById("resultDaily").textContent =
+    document.getElementById(
+      "resultDaily"
+    ).textContent =
       money(dailyRate);
 
-    document.getElementById("resultTenantDays").textContent =
+    document.getElementById(
+      "resultTenantDays"
+    ).textContent =
       tenantDays;
 
-    document.getElementById("resultRemainingDays").textContent =
+    document.getElementById(
+      "resultRemainingDays"
+    ).textContent =
       billDays - tenantDays;
 
-    document.getElementById("resultRemaining").textContent =
+    document.getElementById(
+      "resultRemaining"
+    ).textContent =
       money(remainingPortion);
 
-    document.getElementById("resultTenant").textContent =
+    document.getElementById(
+      "resultTenant"
+    ).textContent =
       money(tenantPortion);
-
 
     results.style.display = "block";
   }
 
 
   function copyTenantPortion() {
-
     const amount =
-      document
-        .getElementById("resultTenant")
-        .textContent;
-
+      document.getElementById(
+        "resultTenant"
+      ).textContent;
 
     navigator.clipboard
       .writeText(amount)
-      .then(function() {
-
+      .then(() => {
         const status =
-          document.getElementById("copyStatus");
+          document.getElementById(
+            "copyStatus"
+          );
 
         status.textContent =
           "Copied " + amount;
@@ -1313,21 +1583,19 @@
         status.style.display =
           "block";
 
-        setTimeout(function() {
-
+        setTimeout(() => {
           status.style.display =
             "none";
-
         }, 2000);
-
       });
   }
 
 
   function showBillError(message) {
-
     const errorBox =
-      document.getElementById("billError");
+      document.getElementById(
+        "billError"
+      );
 
     errorBox.textContent = message;
     errorBox.style.display = "block";
@@ -1335,7 +1603,6 @@
 
 
   function clearBillProration() {
-
     [
       "billAmount",
       "billDays",
@@ -1343,27 +1610,19 @@
       "billEnd",
       "tenantStart",
       "tenantDays"
-    ]
-    .forEach(function(id) {
-
+    ].forEach(id => {
       document.getElementById(id).value =
         "";
-
     });
 
+    document.getElementById(
+      "billResults"
+    ).style.display = "none";
 
-    document
-      .getElementById("billResults")
-      .style.display =
-      "none";
-
-
-    document
-      .getElementById("billError")
-      .style.display =
-      "none";
+    document.getElementById(
+      "billError"
+    ).style.display = "none";
   }
-
 </script>
 
 </body>
